@@ -1,7 +1,10 @@
 const {
     clickElement,
-    clickDayWeek
+    getText
 } = require("./lib/commands");
+const daysWeek = require("./pageIndex");
+
+const plases = require("./pageHall");
 
 let page;
 
@@ -26,14 +29,14 @@ describe("Ticket booking", () => {
         await page.goto("http://qamid.tmweb.ru/client/index.php", {
             timeout: 60000
         });
-        await clickElement(page, "body > nav > a:nth-child(2) > span.page-nav__day-number");
+        await clickElement(page, daysWeek.secondDay);
 
-        await clickElement(page, "main > section:nth-child(3) > div:nth-child(2) > ul > li > a");
+        await clickElement(page, daysWeek.movi3Day);
 
 
         await page.waitForSelector("h1");
 
-        await clickElement(page, "section div:nth-child(8) > span:nth-child(6)");
+        await clickElement(page, plases.row2Plase10);
 
 
         await clickElement(page, "button");
@@ -48,22 +51,22 @@ describe("Ticket booking", () => {
     }, 60000);
 
     test("should book one seat", async () => {
-        await clickElement(page, "nav > a:nth-child(5) > span.page-nav__day-week")
+        await clickElement(page, daysWeek.fifthDay);
 
-        await clickElement(page, "main > section:nth-child(2) > div.movie-seances__hall > ul > li > a");
+        await clickElement(page, daysWeek.movi1Evening);
 
         await page.waitForSelector("h1");
 
-        await clickElement(page, "section  div:nth-child(1) > span.buying-scheme__chair.buying-scheme__chair_vip");
+        await clickElement(page, plases.row1PlaseVip);
 
         await clickElement(page, "button");
 
         await page.waitForSelector("h1");
 
-        const actual = await page.$eval("main > section > div > p:nth-child(2) > span", text => text.textContent);
+        const actual = await getText(page, "main > section > div > p:nth-child(2) > span", text => text.textContent);
         const expected = "1/2";
 
-        const actualPrise = await page.$eval("main > section > div > p:nth-child(6) > span", text => text.textContent);
+        const actualPrise = await getText(page, "main > section > div > p:nth-child(6) > span", text => text.textContent);
         const expectedPrise = "350";
 
         expect(actual).toContain(expected);
@@ -71,23 +74,23 @@ describe("Ticket booking", () => {
     }, 60000);
 
     test("should book two seats", async () => {
-        await clickElement(page, "nav > a:nth-child(6)");
+        await clickElement(page, daysWeek.sixthDay);
 
-        await clickElement(page, "main > section:nth-child(2) > div.movie-seances__hall > ul > li > a");
+        await clickElement(page, daysWeek.movi3Morning);
 
         await page.waitForSelector("h1");
 
-        await clickElement(page, "main > section  div:nth-child(5) > span:nth-child(5)");
-        await clickElement(page, "main > section  div:nth-child(5) > span:nth-child(6)");
+        await clickElement(page, plases.row5Plase5);
+        await clickElement(page, plases.row5Plase6);
 
         await clickElement(page, "button");
 
         await page.waitForSelector("h1");
 
-        const actual = await page.$eval("main > section > div > p:nth-child(2) > span", text => text.textContent);
+        const actual = await getText(page, "main > section > div > p:nth-child(2) > span", text => text.textContent);
         const expected = "5/5, 5/6";
 
-        const actualPrise = await page.$eval("main > section > div > p:nth-child(6) > span", text => text.textContent);
+        const actualPrise = await getText(page, "main > section > div > p:nth-child(6) > span", text => text.textContent);
         const expectedPrise = "200";
 
         expect(actual).toContain(expected);
@@ -95,19 +98,21 @@ describe("Ticket booking", () => {
     }, 60000);
 
     test.skip("should not book", async () => {
-        await clickElement(page, "body > nav > a:nth-child(2) > span.page-nav__day-number");
+        await clickElement(page, daysWeek.secondDay);
 
-        await clickElement(page, "main > section:nth-child(3) > div:nth-child(2) > ul > li > a");
+        await clickElement(page, daysWeek.movi3Day);
 
         await page.waitForSelector("h1");
 
-        await clickElement(page, "section div:nth-child(8) > span:nth-child(6)");
+        await clickElement(page, plases.row2Plase10);
 
-        const actual = await page.$eval(
+        const actual = await getText(page,
             "h2",
             (text) => text.textContent
         );
         const expected = "Фильм 3";
         expect(actual).toContain(expected);
     }, 60000);
+
+    (".buying-scheme__chair_taken")
 })
