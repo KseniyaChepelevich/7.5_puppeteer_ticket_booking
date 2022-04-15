@@ -35,7 +35,7 @@ module.exports = {
     row8Plase1: "main > section div:nth-child(8) > span:nth-child(1)",
     row8Plase2: "main > section div:nth-child(8) > span:nth-child(2)",
     row8Plase3: "main > section div:nth-child(8) > span:nth-child(3)",
-    row8Plase4: "main > section div:nth-child(8) > span:nth-child(4)";
+    row8Plase4: "main > section div:nth-child(8) > span:nth-child(4)",
     row8Plase5: "main > section div:nth-child(8) > span:nth-child(5)",
     row8Plase6: "main > section div:nth-child(8) > span:nth-child(6)",
     row8Plase7: "main > section div:nth-child(8) > span:nth-child(7)",

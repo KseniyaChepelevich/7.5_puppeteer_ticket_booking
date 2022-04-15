@@ -4,7 +4,8 @@
   "description": "test cases with puppeteer and cucumber",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "cucumber": "cucumber-js"
   },
   "keywords": [
     "puppeteer",
@@ -14,6 +15,8 @@
   "author": "KChepelevich",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.6",
+    "cucumber": "^6.0.5",
     "jest": "^27.5.1",
     "jest-puppeteer": "^6.1.0",
     "puppeteer": "^13.5.2"
